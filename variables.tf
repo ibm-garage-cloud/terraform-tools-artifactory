@@ -32,7 +32,7 @@ variable "tls_secret_name" {
 variable "chart_version" {
   type        = string
   description = "The chart version that will be used for artifactory release"
-  default     = "9.1.5"
+  default     = "9.4.5"
 }
 
 variable "storage_class" {
