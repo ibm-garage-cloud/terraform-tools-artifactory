@@ -8,7 +8,7 @@ provider "helm" {
 locals {
   tmp_dir                = "${path.cwd}/.tmp"
   ingress_host           = "artifactory-${var.releases_namespace}.${var.cluster_ingress_hostname}"
-  ingress_url            = "http://${local.ingress_host}"
+  ingress_url            = "https://${local.ingress_host}"
   values_file            = "${path.module}/artifactory-values.yaml"
   config_name            = "artifactory-config"
   secret_name            = "artifactory-access"
@@ -94,8 +94,20 @@ resource "null_resource" "create-route" {
   }
 }
 
+resource "null_resource" "delete-consolelink" {
+  count = var.cluster_type != "kubernetes" ? 1 : 0
+
+  provisioner "local-exec" {
+    command = "kubectl delete consolelink -l grouping=garage-cloud-native-toolkit -l app=artifactory || exit 0"
+
+    environment = {
+      KUBECONFIG = var.cluster_config_file
+    }
+  }
+}
+
 resource "helm_release" "artifactory-config" {
-  depends_on = [helm_release.artifactory, null_resource.create-route]
+  depends_on = [helm_release.artifactory, null_resource.create-route, null_resource.delete-consolelink]
 
   name         = "artifactory-config"
   repository   = "https://ibm-garage-cloud.github.io/toolkit-charts/"
@@ -105,7 +117,7 @@ resource "helm_release" "artifactory-config" {
 
   set {
     name  = "name"
-    value = "artifactory"
+    value = "Artifactory"
   }
 
   set {
@@ -136,5 +148,15 @@ resource "helm_release" "artifactory-config" {
   set {
     name  = "otherSecret.ADMIN_ACCESS_PASSWORD"
     value = "admin"
+  }
+
+  set {
+    name  = "applicationMenu"
+    value = var.cluster_type != "kubernetes"
+  }
+
+  set {
+    name  = "ingressSubdomain"
+    value = var.cluster_ingress_hostname
   }
 }
