@@ -1,0 +1,36 @@
+- namespace: "*"
+  resources:
+    - kind: routes
+      destroy: false
+      when:
+        field: CLUSTER_TYPE
+        operation: not_equal
+        value: iks
+- namespace: tools-artifactory
+  resources:
+    - kind: serviceaccount
+      name: artifactory-artifactory
+    - kind: statefulsets
+      label: app=artifactory
+    - kind: services
+      label: app=artifactory
+    - kind: configmaps
+      label: app=artifactory
+    - kind: secrets
+      label: app=artifactory
+    - kind: ingresses
+      label: app=artifactory
+      when:
+        field: CLUSTER_TYPE
+        value: iks
+    - kind: routes
+      label: app=artifactory
+      when:
+        field: CLUSTER_TYPE
+        operation: not_equal
+        value: iks
+    - kind: consolelink
+      name: toolkit-artifactory
+      when:
+        field: CLUSTER_TYPE
+        value: ocp4
