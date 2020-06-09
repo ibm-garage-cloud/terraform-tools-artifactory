@@ -1,5 +1,7 @@
 # Artifactory terraform module
 
+![Verify and release module](https://github.com/ibm-garage-cloud/terraform-tools-artifactory/workflows/Verify%20and%20release%20module/badge.svg?branch=master)
+
 Installs Artifactory in the cluster using the helm chart.
 
 ## Supported platforms

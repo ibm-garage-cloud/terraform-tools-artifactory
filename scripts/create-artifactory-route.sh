@@ -17,8 +17,7 @@ cat <<EOL > ${ROUTE_YAML}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: artifactory
-  namespace: tools
+  name: ${NAME}
   labels:
     app: artifactory
 spec:

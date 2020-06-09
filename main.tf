@@ -58,6 +58,11 @@ resource "helm_release" "artifactory" {
   }
 
   set {
+    name  = "artifactory.persistence.enabled"
+    value = var.persistence
+  }
+
+  set {
     name  = "artifactory.persistence.storageClass"
     value = var.storage_class != "" ? var.storage_class : "-"
   }
@@ -70,7 +75,7 @@ resource "null_resource" "create-route" {
   triggers = {
     kubeconfig = var.cluster_config_file
     namespace  = var.releases_namespace
-    name       = "artifactory-artifactory"
+    name       = "artifactory"
     tmp_dir    = local.tmp_dir
   }
 
@@ -152,7 +157,7 @@ resource "helm_release" "artifactory-config" {
 
   set {
     name  = "applicationMenu"
-    value = var.cluster_type != "kubernetes"
+    value = var.cluster_type == "ocp4"
   }
 
   set {

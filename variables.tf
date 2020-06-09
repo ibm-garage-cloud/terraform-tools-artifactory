@@ -40,3 +40,9 @@ variable "storage_class" {
   description = "The storage class of the persistence volume claim"
   default     = "ibmc-file-gold"
 }
+
+variable "persistence" {
+  type        = bool
+  description = "Flag to indicate if PVCs should be used"
+  default     = true
+}
