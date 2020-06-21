@@ -52,3 +52,9 @@ variable "gitops_dir" {
   description = "Directory where the gitops repo content should be written"
   default     = ""
 }
+
+variable "mode" {
+  type        = string
+  description = "The mode of operation for the module (setup)"
+  default     = ""
+}

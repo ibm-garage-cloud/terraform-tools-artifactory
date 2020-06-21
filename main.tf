@@ -14,6 +14,9 @@ locals {
   secret_name            = "artifactory-access"
   gitops_dir             = var.gitops_dir != "" ? var.gitops_dir : "${path.cwd}/gitops"
   chart_dir              = "${local.gitops_dir}/artifactory"
+  global_config          = {
+    storageClass = var.storage_class
+  }
   service_account_config = {
     name = "artifactory-artifactory"
     createNamespace = false
@@ -104,11 +107,10 @@ resource "null_resource" "delete-consolelink" {
 
 resource "local_file" "artifactory-values" {
   depends_on = [null_resource.setup-chart, null_resource.delete-consolelink]
+  count = var.mode != "setup" ? 1 : 0
 
   content  = yamlencode({
-    global = {
-      storageClass = var.storage_class
-    }
+    global = local.global_config
     service-account = local.service_account_config
     artifactory = local.artifactory_config
     ocp-route = local.ocp_route_config
@@ -118,6 +120,8 @@ resource "local_file" "artifactory-values" {
 }
 
 resource "helm_release" "artifactory" {
+  depends_on = [local_file.artifactory-values]
+
   name         = "artifactory"
   chart        = local.chart_dir
   namespace    = var.releases_namespace
