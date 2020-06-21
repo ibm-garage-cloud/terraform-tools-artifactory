@@ -128,9 +128,10 @@ resource "helm_release" "artifactory" {
   depends_on = [local_file.artifactory-values]
   count = var.mode != "setup" ? 1 : 0
 
-  name         = "artifactory"
-  chart        = local.chart_dir
-  namespace    = var.releases_namespace
-  timeout      = 1200
-  force_update = true
+  name              = "artifactory"
+  chart             = local.chart_dir
+  namespace         = var.releases_namespace
+  timeout           = 1200
+  dependency_update = true
+  force_update      = true
 }
