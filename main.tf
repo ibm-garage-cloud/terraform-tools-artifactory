@@ -112,7 +112,7 @@ resource "local_file" "artifactory-values" {
     ocp-route = local.ocp_route_config
     tool-config = local.tool_config
   })
-  filename = "${local.gitops_dir}/artifactory/values.yaml"
+  filename = "${local.chart_dir}/values.yaml"
 }
 
 resource "null_resource" "print-values" {
