@@ -1,0 +1,38 @@
+global: {}
+
+service-account:
+  name: artifactory-artifactory
+  createNamespace: false
+  sccs:
+    - anyuid
+    - privileged
+
+artifactory:
+  nameOverride: artifactory
+
+  artifactory:
+    image:
+      repository: docker.bintray.io/jfrog/artifactory-oss
+    accessAdmin:
+      password: admin
+    persistence:
+      enabled: true
+      size: 5Gi
+    uid: 0
+
+  ingress:
+    enabled: true
+
+  postgresql:
+    enabled: false
+
+  nginx:
+    enabled: false
+
+  serviceAccount:
+    create: true
+    name: artifactory-artifactory
+
+ocp-route:
+
+tool-config:
