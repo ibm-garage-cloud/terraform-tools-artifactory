@@ -7,9 +7,9 @@ dependencies:
   version: 9.4.5
 - name: ocp-route
   repository: https://ibm-garage-cloud.github.io/toolkit-charts/
-  version: 0.1.0
+  version: 0.2.0
 - name: tool-config
   repository: https://ibm-garage-cloud.github.io/toolkit-charts/
   version: 0.5.0
-digest: sha256:875f7848c9be4197c0300295b9837dd8afb0562e045e94afd37ac1c1b9cf0fd7
-generated: "2020-06-21T16:59:25.699713-05:00"
+digest: sha256:3ddc742d614d88e0624e4059f5cc9c045c070ca8c6dd10a81b60290e133fca7a
+generated: "2020-06-21T17:06:03.834075-05:00"
