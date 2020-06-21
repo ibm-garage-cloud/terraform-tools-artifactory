@@ -88,7 +88,7 @@ locals {
 
 resource "null_resource" "setup-chart" {
   provisioner "local-exec" {
-    command = "mkdir -p ${local.gitops_dir} && cp -R ${path.module}/chart/artifactory/* ${local.chart_dir}"
+    command = "mkdir -p ${local.gitops_dir}/artifactory && cp -R ${path.module}/chart/artifactory/* ${local.chart_dir}"
   }
 }
 
