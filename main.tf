@@ -107,7 +107,6 @@ resource "null_resource" "delete-consolelink" {
 
 resource "local_file" "artifactory-values" {
   depends_on = [null_resource.setup-chart, null_resource.delete-consolelink]
-  count = var.mode != "setup" ? 1 : 0
 
   content  = yamlencode({
     global = local.global_config
@@ -126,15 +125,12 @@ resource "null_resource" "print-values" {
 }
 
 resource "helm_release" "artifactory" {
-  depends_on = [null_resource.print-values]
+  depends_on = [local_file.artifactory-values]
+  count = var.mode != "setup" ? 1 : 0
 
   name         = "artifactory"
   chart        = local.chart_dir
   namespace    = var.releases_namespace
   timeout      = 1200
   force_update = true
-
-  values = [
-    local_file.artifactory-values.content
-  ]
 }
