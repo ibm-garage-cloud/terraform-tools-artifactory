@@ -1,5 +1,5 @@
 module "dev_tools_artifactory" {
-  source = "github.com/ibm-garage-cloud/terraform-tools-artifactory.git"
+  source = "./module"
 
   cluster_type             = module.dev_cluster.type_code
   service_account          = "artifactory-artifactory"

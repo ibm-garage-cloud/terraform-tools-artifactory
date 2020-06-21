@@ -126,7 +126,7 @@ resource "null_resource" "print-values" {
 }
 
 resource "helm_release" "artifactory" {
-  depends_on = [local_file.artifactory-values]
+  depends_on = [null_resource.print-values]
 
   name         = "artifactory"
   chart        = local.chart_dir
