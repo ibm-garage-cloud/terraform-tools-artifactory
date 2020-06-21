@@ -12,7 +12,6 @@ locals {
   values_file            = "${path.module}/artifactory-values.yaml"
   config_name            = "artifactory-config"
   secret_name            = "artifactory-access"
-  name                   = "artifactory"
   gitops_dir             = var.gitops_dir != "" ? var.gitops_dir : "${path.cwd}/gitops"
   chart_dir              = "${local.gitops_dir}/artifactory"
   service_account_config = {
@@ -63,10 +62,10 @@ locals {
     }
   }
   ocp_route_config       = {
-    nameOverride = local.name
+    nameOverride = "artifactory"
     targetPort = "router"
     app = "artifactory"
-    serviceName = local.name
+    serviceName = "artifactory-artifactory"
     termination = "edge"
     insecurePolicy = "Redirect"
   }
