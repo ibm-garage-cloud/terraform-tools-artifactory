@@ -9,6 +9,8 @@ locals {
   tmp_dir                = "${path.cwd}/.tmp"
   ingress_host           = "artifactory-${var.releases_namespace}.${var.cluster_ingress_hostname}"
   ingress_url            = "https://${local.ingress_host}"
+  config_name            = "artifactory-config"
+  secret_name            = "artifactory-access"
   gitops_dir             = var.gitops_dir != "" ? var.gitops_dir : "${path.cwd}/gitops"
   chart_dir              = "${local.gitops_dir}/artifactory"
   global_config          = {
@@ -86,7 +88,7 @@ locals {
 
 resource "null_resource" "setup-chart" {
   provisioner "local-exec" {
-    command = "mkdir -p ${local.gitops_dir} && cp -Rv ${path.module}/chart/artifactory/* ${local.chart_dir}"
+    command = "mkdir -p ${local.gitops_dir} && cp -R ${path.module}/chart/artifactory/* ${local.chart_dir}"
   }
 }
 
