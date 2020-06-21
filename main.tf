@@ -65,7 +65,6 @@ locals {
     }
   }
   ocp_route_config       = {
-    createRoute = var.cluster_type != "kubernetes"
     nameOverride = "artifactory"
     targetPort = "router"
     app = "artifactory"
