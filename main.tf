@@ -119,6 +119,12 @@ resource "local_file" "artifactory-values" {
   filename = "${local.gitops_dir}/artifactory/values.yaml"
 }
 
+resource "null_resource" "print-values" {
+  provisioner "local-exec" {
+    command = "cat ${local_file.artifactory-values.filename}"
+  }
+}
+
 resource "helm_release" "artifactory" {
   depends_on = [local_file.artifactory-values]
 
