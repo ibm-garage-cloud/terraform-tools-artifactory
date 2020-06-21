@@ -15,11 +15,12 @@ locals {
   chart_dir              = "${local.gitops_dir}/artifactory"
   global_config          = {
     storageClass = var.storage_class
+    clusterType = var.cluster_type
   }
   service_account_config = {
     name = "artifactory-artifactory"
     createNamespace = false
-    sccs = var.cluster_type == "kubernetes" ? [] : ["anyuid", "privileged"]
+    sccs = ["anyuid", "privileged"]
   }
   artifactory_config     = {
     nameOverride = "artifactory"
