@@ -19,7 +19,7 @@ locals {
   service_account_config = {
     name = "artifactory-artifactory"
     createNamespace = false
-    sccs = var.cluster_type == "kuberentes" ? [] : ["anyuid", "privileged"]
+    sccs = var.cluster_type == "kubernetes" ? [] : ["anyuid", "privileged"]
   }
   artifactory_config     = {
     nameOverride = "artifactory"
