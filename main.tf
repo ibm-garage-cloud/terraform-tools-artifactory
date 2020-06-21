@@ -133,4 +133,8 @@ resource "helm_release" "artifactory" {
   namespace    = var.releases_namespace
   timeout      = 1200
   force_update = true
+
+  values = [
+    local_file.artifactory-values.content
+  ]
 }
