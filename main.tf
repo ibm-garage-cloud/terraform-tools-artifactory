@@ -134,4 +134,6 @@ resource "helm_release" "artifactory" {
   timeout           = 1200
   dependency_update = true
   force_update      = true
+
+  disable_openapi_validation = true
 }
