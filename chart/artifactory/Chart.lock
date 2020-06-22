@@ -1,7 +1,7 @@
 dependencies:
 - name: service-account
   repository: https://ibm-garage-cloud.github.io/toolkit-charts/
-  version: 0.2.3
+  version: 0.3.0
 - name: artifactory
   repository: https://charts.jfrog.io/
   version: 9.4.5
@@ -11,5 +11,5 @@ dependencies:
 - name: tool-config
   repository: https://ibm-garage-cloud.github.io/toolkit-charts/
   version: 0.5.0
-digest: sha256:104bb5d148d5569e975464f0a56d20d8e8f43a5ff7b0941ea102ea189185a128
-generated: "2020-06-21T17:37:27.005068-05:00"
+digest: sha256:012190bcecb136b7fb5b45afbe662485059c3f5c3293ef9112d9ff612d1355c6
+generated: "2020-06-21T23:16:21.649416-05:00"

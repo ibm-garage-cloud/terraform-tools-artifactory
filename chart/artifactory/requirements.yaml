@@ -1,6 +1,6 @@
 dependencies:
   - name: service-account
-    version: 0.2.3
+    version: 0.3.0
     repository: https://ibm-garage-cloud.github.io/toolkit-charts/
   - name: artifactory
     version: 9.4.5
