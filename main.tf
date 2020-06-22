@@ -124,8 +124,21 @@ resource "null_resource" "print-values" {
   }
 }
 
-resource "helm_release" "artifactory" {
+resource "null_resource" "scc-cleanup" {
   depends_on = [local_file.artifactory-values]
+  count = var.mode != "setup" ? 1 : 0
+
+  provisioner "local-exec" {
+    command = "kubectl delete scc -l \"app.kubernetes.io/name=artifactory-artifactory\" 1> /dev/null 2> /dev/null || true"
+
+    environment = {
+      KUBECONFIG = var.cluster_config_file
+    }
+  }
+}
+
+resource "helm_release" "artifactory" {
+  depends_on = [local_file.artifactory-values, null_resource.scc-cleanup]
   count = var.mode != "setup" ? 1 : 0
 
   name              = "artifactory"
