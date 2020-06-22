@@ -19,7 +19,7 @@ locals {
   }
   service_account_config = {
     name = "artifactory-artifactory"
-    createNamespace = false
+    create = false
     sccs = ["anyuid", "privileged"]
   }
   artifactory_config     = {
@@ -53,7 +53,7 @@ locals {
         ]
       }]
     }
-    postgress = {
+    postgresql = {
       enabled = false
     }
     nginx = {
