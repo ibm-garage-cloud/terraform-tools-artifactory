@@ -17,6 +17,8 @@ locals {
   global_config          = {
     storageClass = var.storage_class
     clusterType = var.cluster_type
+    ingressSubdomain = var.cluster_ingress_hostname
+    tlsSecretName = var.tls_secret_name
   }
   service_account_config = {
     name = "artifactory-artifactory"
@@ -83,8 +85,7 @@ locals {
       ADMIN_USER = "admin-access"
       ADMIN_ACCESS_PASSWORD = "admin"
     }
-    applicationMenu = var.cluster_type == "ocp4"
-    ingressSubdomain = var.cluster_ingress_hostname
+    applicationMenu = true
   }
 }
 
