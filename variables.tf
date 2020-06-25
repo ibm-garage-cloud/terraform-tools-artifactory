@@ -46,3 +46,15 @@ variable "persistence" {
   description = "Flag to indicate if PVCs should be used"
   default     = true
 }
+
+variable "gitops_dir" {
+  type        = string
+  description = "Directory where the gitops repo content should be written"
+  default     = ""
+}
+
+variable "mode" {
+  type        = string
+  description = "The mode of operation for the module (setup)"
+  default     = ""
+}

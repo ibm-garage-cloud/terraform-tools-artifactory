@@ -1,0 +1,15 @@
+dependencies:
+- name: service-account
+  repository: https://ibm-garage-cloud.github.io/toolkit-charts/
+  version: 0.4.0
+- name: artifactory
+  repository: https://charts.jfrog.io/
+  version: 9.4.5
+- name: ocp-route
+  repository: https://ibm-garage-cloud.github.io/toolkit-charts/
+  version: 0.3.0
+- name: tool-config
+  repository: https://ibm-garage-cloud.github.io/toolkit-charts/
+  version: 0.7.0
+digest: sha256:cdd7d9981f66fb23139abe693c20c39c7ac1271391c93be36ab94cc4abb4b453
+generated: "2020-06-25T07:23:26.136692-05:00"

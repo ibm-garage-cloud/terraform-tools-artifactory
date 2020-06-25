@@ -1,0 +1,9 @@
+global: {}
+
+service-account: {}
+
+artifactory: {}
+
+ocp-route: {}
+
+tool-config: {}
