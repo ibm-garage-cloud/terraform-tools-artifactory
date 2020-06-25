@@ -12,7 +12,8 @@ locals {
   config_name            = "artifactory-config"
   secret_name            = "artifactory-access"
   gitops_dir             = var.gitops_dir != "" ? var.gitops_dir : "${path.cwd}/gitops"
-  chart_dir              = "${local.gitops_dir}/artifactory"
+  chart_name             = "artifactory"
+  chart_dir              = "${local.gitops_dir}/${local.chart_name}"
   global_config          = {
     storageClass = var.storage_class
     clusterType = var.cluster_type
@@ -89,7 +90,7 @@ locals {
 
 resource "null_resource" "setup-chart" {
   provisioner "local-exec" {
-    command = "mkdir -p ${local.gitops_dir}/artifactory && cp -R ${path.module}/chart/artifactory/* ${local.chart_dir}"
+    command = "mkdir -p ${local.chart_dir} && cp -R ${path.module}/chart/${local.chart_name}/* ${local.chart_dir}"
   }
 }
 
