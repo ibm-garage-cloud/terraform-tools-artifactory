@@ -4,8 +4,15 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd -P)
 
 CLUSTER_TYPE="$1"
 NAMESPACE="$2"
+NAME="$3"
 
-echo "Verifying resources in $NAMESPACE namespace"
+if [[ -z "${NAME}" ]]; then
+  NAME=$(NAMESPACE//tools-/)
+fi
+
+set -e
+
+echo "Verifying resources in ${NAMESPACE} namespace for module ${NAME}"
 
 PODS=$(kubectl get -n "${NAMESPACE}" pods -o jsonpath='{range .items[*]}{.status.phase}{": "}{.kind}{"/"}{.metadata.name}{"\n"}{end}' | grep -v "Running" | grep -v "Succeeded")
 POD_STATUSES=$(echo "${PODS}" | sed -E "s/(.*):.*/\1/g")
@@ -37,5 +44,13 @@ echo "${CONFIG_URLS}" | while read url; do
     ${SCRIPT_DIR}/waitForEndpoint.sh "${url}" 10 10
   fi
 done
+
+if [[ "${CLUSTER_TYPE}" == "ocp4" ]]; then
+  echo "Validating consolelink"
+  if [[ $(kubectl get consolelink "toolkit-${NAME}" | wc -l) -eq 0 ]]; then
+    echo "   ConsoleLink not found"
+    exit 1
+  fi
+fi
 
 exit 0
