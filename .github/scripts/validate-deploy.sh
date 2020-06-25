@@ -10,8 +10,6 @@ if [[ -z "${NAME}" ]]; then
   NAME=$(echo "${NAMESPACE}" | sed "s/tools-//")
 fi
 
-set -e
-
 echo "Verifying resources in ${NAMESPACE} namespace for module ${NAME}"
 
 PODS=$(kubectl get -n "${NAMESPACE}" pods -o jsonpath='{range .items[*]}{.status.phase}{": "}{.kind}{"/"}{.metadata.name}{"\n"}{end}' | grep -v "Running" | grep -v "Succeeded")
