@@ -7,7 +7,7 @@ NAMESPACE="$2"
 NAME="$3"
 
 if [[ -z "${NAME}" ]]; then
-  NAME=$(NAMESPACE//tools-/)
+  NAME=$(echo "${NAMESPACE}" | sed "s/tools-//")
 fi
 
 set -e
