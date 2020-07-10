@@ -58,3 +58,9 @@ variable "mode" {
   description = "The mode of operation for the module (setup)"
   default     = ""
 }
+
+variable "icon_url" {
+  type        = string
+  description = "The base url where the icons can be found"
+  default     = ""
+}
