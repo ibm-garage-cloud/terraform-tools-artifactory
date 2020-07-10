@@ -21,6 +21,7 @@ variable "cluster_type" {
 variable "service_account" {
   type        = string
   description = "The service account under which the artifactory pods should run"
+  default     = "artifactory-artifactory"
 }
 
 variable "tls_secret_name" {

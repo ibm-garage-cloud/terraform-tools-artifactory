@@ -7,5 +7,6 @@ module "dev_tools_artifactory" {
   cluster_ingress_hostname = module.dev_cluster.ingress_hostname
   cluster_config_file      = module.dev_cluster.config_file_path
   tls_secret_name          = module.dev_cluster.tls_secret_name
+  image_url                = module.dev_tools_dashboard.base_icon_url
   persistence              = false
 }
