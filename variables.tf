@@ -21,6 +21,7 @@ variable "cluster_type" {
 variable "service_account" {
   type        = string
   description = "The service account under which the artifactory pods should run"
+  default     = "artifactory-artifactory"
 }
 
 variable "tls_secret_name" {
@@ -56,5 +57,11 @@ variable "gitops_dir" {
 variable "mode" {
   type        = string
   description = "The mode of operation for the module (setup)"
+  default     = ""
+}
+
+variable "icon_url" {
+  type        = string
+  description = "The base url where the icons can be found"
   default     = ""
 }

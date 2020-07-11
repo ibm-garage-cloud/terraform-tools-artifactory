@@ -11,6 +11,7 @@ locals {
   ingress_url            = "https://${local.ingress_host}"
   config_name            = "artifactory-config"
   secret_name            = "artifactory-access"
+  image_url              = var.icon_url != "" ? "${var.icon_url}/artifactory" : ""
   gitops_dir             = var.gitops_dir != "" ? var.gitops_dir : "${path.cwd}/gitops"
   chart_name             = "artifactory"
   chart_dir              = "${local.gitops_dir}/${local.chart_name}"
@@ -86,6 +87,7 @@ locals {
       ADMIN_ACCESS_PASSWORD = "admin"
     }
     applicationMenu = true
+    imageUrl = local.image_url
   }
 }
 

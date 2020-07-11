@@ -43,7 +43,7 @@ module "dev_tools_artifactory" {
   cluster_ingress_hostname = module.dev_cluster.ingress_hostname
   cluster_config_file      = module.dev_cluster.config_file_path
   tls_secret_name          = module.dev_cluster.tls_secret_name
-  service_account          = module.dev_serviceaccount_artifactory.name
-  releases_namespace       = module.dev_serviceaccount_artifactory.namespace
+  releases_namespace       = module.dev_tools_namespace.name
+  image_url
 }
 ```
