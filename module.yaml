@@ -9,7 +9,7 @@ dependencies:
       - source: github.com/ibm-garage-cloud/terraform-ibm-container-platform
         version: ">= 1.7.0"
       - source: github.com/ibm-garage-cloud/terraform-k8s-ocp-cluster
-        version: ">= 1.0.0"
+        version: ">= 2.0.0"
   - id: namespace
     refs:
       - source: github.com/ibm-garage-cloud/terraform-k8s-namespace
