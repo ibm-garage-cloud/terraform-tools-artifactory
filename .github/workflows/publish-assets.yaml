@@ -27,7 +27,7 @@ jobs:
 
       - name: Build module.yaml
         run: |
-          ./.github/scripts/build-module-metadata.sh ${{ github.event.release.tag_name }} ${{ env.DIST_DIR }}
+          ./.github/scripts/build-module-metadata.sh ${{ github.event.release.tag_name }} ${{ env.DIST_DIR }} ${{ github.repository }}
 
       - name: Upload module.yaml
         uses: actions/upload-release-asset@v1
