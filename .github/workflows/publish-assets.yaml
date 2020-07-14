@@ -33,7 +33,7 @@ jobs:
           mkdir ./scripts && cp ./.github/scripts/merge-module-metadata.sh ./scripts
 
       - name: Checkout publish branch
-        run: git ch ${{ env.PUBLISH_BRANCH }}
+        run: git checkout ${{ env.PUBLISH_BRANCH }}
 
       - name: Build index.yaml
         run: |
