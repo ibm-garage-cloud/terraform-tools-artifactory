@@ -32,8 +32,11 @@ jobs:
           cp README.md ${{ env.DIST_DIR }}
           mkdir ./scripts && cp ./.github/scripts/merge-module-metadata.sh ./scripts
 
-      - name: Checkout publish branch
-        run: git checkout ${{ env.PUBLISH_BRANCH }}
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.PUBLISH_BRANCH }}
+          clean: false
 
       - name: Build index.yaml
         run: |
