@@ -1,3 +1,4 @@
+id: github.com/ibm-garage-cloud/terraform-tools-artifactory
 name: artifactory
 type: terraform
 description: Module to install Artifactory into a cluster
@@ -99,4 +100,3 @@ versions:
     description: The name of the secret created to store the url
   - name: secret_name
     description: The name of the secret created to store the credentials
-id: github.com/ibm-garage-cloud/terraform-tools-artifactory
