@@ -90,6 +90,99 @@ versions:
     type: string
     description: The mode of operation for the module (setup)
     optional: true
+  version: v1.7.0
+  outputs:
+  - name: ingress_host
+    description: The ingress host for the Artifactory instance
+  - name: ingress_url
+    description: The ingress url for the Artifactory instance
+  - name: config_name
+    description: The name of the secret created to store the url
+  - name: secret_name
+    description: The name of the secret created to store the credentials
+- platforms:
+  - kubernetes
+  - ocp3
+  - ocp4
+  dependencies:
+  - id: cluster
+    refs:
+    - source: github.com/ibm-garage-cloud/terraform-ibm-container-platform
+      version: ">= 1.7.0"
+    - source: github.com/ibm-garage-cloud/terraform-k8s-ocp-cluster
+      version: ">= 2.0.0"
+  - id: namespace
+    refs:
+    - source: github.com/ibm-garage-cloud/terraform-k8s-namespace
+      version: ">= 2.1.0"
+  - id: dashboard
+    refs:
+    - source: github.com/ibm-garage-cloud/terraform-k8s-dashboard
+      version: ">= 1.6.0"
+  variables:
+  - name: cluster_type
+    moduleRef:
+      id: cluster
+      output: type_code
+    type: string
+    description: The cluster type (openshift or ocp3 or ocp4 or kubernetes)
+  - name: cluster_ingress_hostname
+    moduleRef:
+      id: cluster
+      output: ingress_hostname
+    type: string
+    description: Ingress hostname of the cluster.
+  - name: cluster_config_file
+    moduleRef:
+      id: cluster
+      output: config_file_path
+    type: string
+    description: Cluster config file for Kubernetes cluster.
+  - name: tls_secret_name
+    moduleRef:
+      id: cluster
+      output: tls_secret_name
+    type: string
+    description: The name of the secret containing the tls certificate values
+    optional: true
+  - name: releases_namespace
+    moduleRef:
+      id: namespace
+      output: name
+      discriminator: tools
+    type: string
+    description: Name of the existing namespace where Pact Broker will be deployed.
+  - name: icon_url
+    moduleRef:
+      id: dashboard
+      output: base_icon_url
+    type: string
+    description: The base url where the icons can be found
+    optional: true
+  - name: service_account
+    type: string
+    description: The service account under which the artifactory pods should run
+    optional: true
+  - name: chart_version
+    type: string
+    description: The chart version that will be used for artifactory release
+    optional: true
+  - name: storage_class
+    type: string
+    description: The storage class of the persistence volume claim
+    optional: true
+  - name: persistence
+    type: bool
+    description: Flag to indicate if PVCs should be used
+    optional: true
+  - name: gitops_dir
+    type: string
+    description: Directory where the gitops repo content should be written
+    optional: true
+  - name: mode
+    type: string
+    description: The mode of operation for the module (setup)
+    optional: true
   version: v1.6.9
   outputs:
   - name: ingress_host
