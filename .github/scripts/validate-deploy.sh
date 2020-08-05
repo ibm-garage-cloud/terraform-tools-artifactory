@@ -22,14 +22,15 @@ if [[ -n "${POD_STATUSES}" ]]; then
 fi
 
 set -e
-#
+
 #if [[ "${CLUSTER_TYPE}" == "kubernetes" ]] || [[ "${CLUSTER_TYPE}" =~ iks.* ]]; then
 #  ENDPOINTS=$(kubectl get ingress -n "${NAMESPACE}" -o jsonpath='{range .items[*]}{range .spec.rules[*]}{"https://"}{.host}{"\n"}{end}{end}')
 #else
 #  ENDPOINTS=$(kubectl get route -n "${NAMESPACE}" -o jsonpath='{range .items[*]}{"https://"}{.spec.host}{.spec.path}{"\n"}{end}')
 #fi
 #
-#echo "Validating endpoints:\n${ENDPOINTS}"
+#echo "Validating endpoints:"
+#echo "${ENDPOINTS}"
 #
 #echo "${ENDPOINTS}" | while read endpoint; do
 #  if [[ -n "${endpoint}" ]]; then
@@ -54,6 +55,12 @@ echo "${CONFIG_URLS}" | while read url; do
     ${SCRIPT_DIR}/waitForEndpoint.sh "${url}" 10 10
   fi
 done
+
+ENCRYPT=$(kubectl get secret artifactory-access -o jsonpath='{.data.ARTIFACTORY_ENCRYPT}')
+if [[ -z "${ENCRYPT}" ]]; then
+  echo "ENCRPYT password not set"
+  exit 1
+fi
 
 if [[ "${CLUSTER_TYPE}" == "ocp4" ]]; then
   echo "Validating consolelink"
