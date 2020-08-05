@@ -89,6 +89,14 @@ locals {
     }
     applicationMenu = true
   }
+  job_config             = {
+    name = "artifactory"
+    command = "setup-artifactory"
+    secret = {
+      name = "artifactory-access"
+      key  = "ARTIFACTORY_URL"
+    }
+  }
 }
 
 resource "null_resource" "setup-chart" {
@@ -118,6 +126,7 @@ resource "local_file" "artifactory-values" {
     artifactory = local.artifactory_config
     ocp-route = local.ocp_route_config
     tool-config = local.tool_config
+    setup-job = local.job_config
   })
   filename = "${local.chart_dir}/values.yaml"
 }
