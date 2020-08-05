@@ -11,10 +11,10 @@ locals {
   ingress_url            = "https://${local.ingress_host}"
   config_name            = "artifactory-config"
   secret_name            = "artifactory-access"
-  image_url              = var.icon_url != "" ? "${var.icon_url}/artifactory" : ""
   gitops_dir             = var.gitops_dir != "" ? var.gitops_dir : "${path.cwd}/gitops"
   chart_name             = "artifactory"
   chart_dir              = "${local.gitops_dir}/${local.chart_name}"
+  service_name           = "artifactory-artifactory"
   global_config          = {
     storageClass = var.storage_class
     clusterType = var.cluster_type
@@ -72,13 +72,14 @@ locals {
     nameOverride = "artifactory"
     targetPort = "router"
     app = "artifactory"
-    serviceName = "artifactory-artifactory"
+    serviceName = local.service_name
     termination = "edge"
     insecurePolicy = "Redirect"
   }
   tool_config            = {
     name = "Artifactory"
     url = local.ingress_url
+    privateUrl = "http://${local.service_name}.${var.releases_namespace}:8082"
     username = "admin"
     password = "password"
     otherSecret = {
@@ -87,7 +88,6 @@ locals {
       ADMIN_ACCESS_PASSWORD = "admin"
     }
     applicationMenu = true
-    imageUrl = local.image_url
   }
 }
 
