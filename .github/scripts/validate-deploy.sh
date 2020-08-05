@@ -37,7 +37,7 @@ set -e
 #  fi
 #done
 
-INTERNAL_URL=$(kubectl get secret artifactory-access -n "${NAMESPACE}" -o jsonpath='{.data.ARTIFACTORY_URL}' | base64 --decode)
+INTERNAL_URL=$(kubectl get secret artifactory-access -n "${NAMESPACE}" -o jsonpath='{.data.ARTIFACTORY_URL}' | base64 -d)
 
 SERVICE_URL="http://artifactory-artifactory.${NAMESPACE}"
 if [[ "${INTERNAL_URL}" =~ ${SERVICE_URL} ]]; then
