@@ -56,7 +56,7 @@ echo "${CONFIG_URLS}" | while read url; do
   fi
 done
 
-ENCRYPT=$(kubectl get secret artifactory-access -o jsonpath='{.data.ARTIFACTORY_ENCRYPT}')
+ENCRYPT=$(kubectl get secret artifactory-access -m "${NAMESPACE}" -o jsonpath='{.data.ARTIFACTORY_ENCRYPT}')
 if [[ -z "${ENCRYPT}" ]]; then
   echo "ENCRPYT password not set"
   exit 1
