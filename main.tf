@@ -15,6 +15,8 @@ locals {
   chart_name             = "artifactory"
   chart_dir              = "${local.gitops_dir}/${local.chart_name}"
   service_name           = "artifactory-artifactory"
+  sa_name                = "artifactory-artifactory"
+  config_sa_name         = "artifactory-config"
   global_config          = {
     storageClass = var.storage_class
     clusterType = var.cluster_type
@@ -22,9 +24,26 @@ locals {
     tlsSecretName = var.tls_secret_name
   }
   service_account_config = {
-    name = "artifactory-artifactory"
+    name = local.sa_name
     create = false
     sccs = ["anyuid", "privileged"]
+  }
+  config_service_account_config = {
+    name = local.config_sa_name
+    roles = [
+      {
+        apiGroups = [
+          ""
+        ]
+        resources = [
+          "secrets",
+          "configmaps"
+        ]
+        verbs = [
+          "*"
+        ]
+      }
+    ]
   }
   artifactory_config     = {
     nameOverride = "artifactory"
@@ -65,7 +84,7 @@ locals {
     }
     serviceAccount = {
       create = true
-      name = "artifactory-artifactory"
+      name = local.sa_name
     }
   }
   ocp_route_config       = {
@@ -88,6 +107,15 @@ locals {
       ADMIN_ACCESS_PASSWORD = "admin"
     }
     applicationMenu = true
+  }
+  job_config             = {
+    name = "artifactory"
+    serviceAccountName = local.config_sa_name
+    command = "setup-artifactory"
+    secret = {
+      name = "artifactory-access"
+      key  = "ARTIFACTORY_URL"
+    }
   }
 }
 
@@ -115,9 +143,11 @@ resource "local_file" "artifactory-values" {
   content  = yamlencode({
     global = local.global_config
     service-account = local.service_account_config
+    config-service-account = local.config_service_account_config
     artifactory = local.artifactory_config
     ocp-route = local.ocp_route_config
     tool-config = local.tool_config
+    setup-job = local.job_config
   })
   filename = "${local.chart_dir}/values.yaml"
 }
@@ -154,4 +184,17 @@ resource "helm_release" "artifactory" {
   replace           = true
 
   disable_openapi_validation = true
+}
+
+resource "null_resource" "wait-for-config-job" {
+  depends_on = [helm_release.artifactory]
+  count = var.mode != "setup" ? 1 : 0
+
+  provisioner "local-exec" {
+    command = "kubectl wait -n ${var.releases_namespace} --for=condition=complete --timeout=30m job -l app=artifactory"
+
+    environment = {
+      KUBECONFIG = var.cluster_config_file
+    }
+  }
 }
