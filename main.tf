@@ -185,3 +185,16 @@ resource "helm_release" "artifactory" {
 
   disable_openapi_validation = true
 }
+
+resource "null_resource" "wait-for-config-job" {
+  depends_on = [helm_release.artifactory]
+  count = var.mode != "setup" ? 1 : 0
+
+  provisioner "local-exec" {
+    command = "kubectl wait -n ${var.releases_namespace} --for=condition=complete --timeout=30m job -l app=artifactory"
+
+    environment = {
+      KUBECONFIG = var.cluster_config_file
+    }
+  }
+}
