@@ -147,7 +147,7 @@ resource "local_file" "artifactory-values" {
     artifactory = local.artifactory_config
     ocp-route = local.ocp_route_config
     tool-config = local.tool_config
-    setup-job = local.job_config
+//    setup-job = local.job_config
   })
   filename = "${local.chart_dir}/values.yaml"
 }

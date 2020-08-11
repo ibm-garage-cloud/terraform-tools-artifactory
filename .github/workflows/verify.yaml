@@ -13,7 +13,7 @@ jobs:
   verify:
     if: ${{ !contains( github.event.pull_request.labels.*.name, 'skip ci' ) }}
     runs-on: ubuntu-latest
-    container: ibmgaragecloud/cli-tools:0.5.0-lite
+    container: ibmgaragecloud/cli-tools:0.6.0-lite
 
     strategy:
       matrix:
@@ -69,23 +69,23 @@ jobs:
           ./validate-deploy.sh ${{ matrix.platform }} ${{ env.NAMESPACE }}
 
       # Destroy
-      - name: Destroy ${{ matrix.platform }}
-        run: |
-          cd /tmp/workspace
-          ./destroy.sh
+#      - name: Destroy ${{ matrix.platform }}
+#        run: |
+#          cd /tmp/workspace
+#          ./destroy.sh
 
       # Test destroy
-      - name: Validate destroy ${{ matrix.platform }}
-        run: |
-          cd /tmp/workspace
-          ./capture-cluster-state.sh ${{ matrix.platform }} $PWD/cluster-state/before $PWD/cluster-state/after
-          if diff -q $PWD/cluster-state/before $PWD/cluster-state/after 1> /dev/null; then
-            echo "Destroy completed successfully"
-          else
-            echo "Resources don't match"
-            diff $PWD/cluster-state/before $PWD/cluster-state/after
-            exit 1
-          fi
+#      - name: Validate destroy ${{ matrix.platform }}
+#        run: |
+#          cd /tmp/workspace
+#          ./capture-cluster-state.sh ${{ matrix.platform }} $PWD/cluster-state/before $PWD/cluster-state/after
+#          if diff -q $PWD/cluster-state/before $PWD/cluster-state/after 1> /dev/null; then
+#            echo "Destroy completed successfully"
+#          else
+#            echo "Resources don't match"
+#            diff $PWD/cluster-state/before $PWD/cluster-state/after
+#            exit 1
+#          fi
 
   release:
     #    if: ${{ github.event_name == 'push' }}
