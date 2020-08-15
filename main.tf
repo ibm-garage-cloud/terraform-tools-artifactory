@@ -50,6 +50,7 @@ locals {
     artifactory = {
       image = {
         repository = "docker.bintray.io/jfrog/artifactory-oss"
+        version = "7.7.3"
       }
       adminAccess = {
         password = "admin"
