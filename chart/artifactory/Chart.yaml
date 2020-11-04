@@ -26,8 +26,8 @@ dependencies:
     repository: https://ibm-garage-cloud.github.io/toolkit-charts/
     alias: config-service-account
   - name: artifactory
-    version: 11.4.4
-    repository: https://charts.jfrog.io/
+    version: 11.4.5
+    repository: https://ibm-garage-cloud.github.io/jfrog-charts
   - name: ocp-route
     version: 0.3.0
     repository: https://ibm-garage-cloud.github.io/toolkit-charts/

@@ -3,8 +3,8 @@ dependencies:
   repository: https://ibm-garage-cloud.github.io/toolkit-charts/
   version: 0.5.0
 - name: artifactory
-  repository: https://charts.jfrog.io/
-  version: 11.4.4
+  repository: https://ibm-garage-cloud.github.io/jfrog-charts
+  version: 11.4.5
 - name: ocp-route
   repository: https://ibm-garage-cloud.github.io/toolkit-charts/
   version: 0.3.0
@@ -14,5 +14,5 @@ dependencies:
 - name: setup-job
   repository: https://ibm-garage-cloud.github.io/toolkit-charts/
   version: 0.1.7
-digest: sha256:370d0029f9ce2692d9cc4b9d27ce0ad137ff52eb4c40e5173f28661b3be3cac2
-generated: "2020-11-04T10:09:31.820862-06:00"
+digest: sha256:33207b530df610897f73fd836587ff9f476e754961f25f48eced57033c6a72dd
+generated: "2020-11-04T14:24:43.639559-06:00"
