@@ -1,9 +1,9 @@
 global: {}
 
-service-account: {}
-
 artifactory: {}
 
 ocp-route: {}
 
 tool-config: {}
+
+config-service-account: {}
