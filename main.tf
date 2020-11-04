@@ -142,7 +142,6 @@ resource "local_file" "artifactory-values" {
 
   content  = yamlencode({
     global = local.global_config
-    service-account = local.service_account_config
     config-service-account = local.config_service_account_config
     artifactory = local.artifactory_config
     ocp-route = local.ocp_route_config
