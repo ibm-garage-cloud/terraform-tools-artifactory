@@ -59,7 +59,6 @@ locals {
         storageClass = var.storage_class
         size = "5Gi"
       }
-      uid = 0
     }
     ingress = {
       enabled = var.cluster_type == "kubernetes"
