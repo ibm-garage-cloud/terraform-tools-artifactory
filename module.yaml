@@ -21,10 +21,6 @@ versions:
       refs:
         - source: github.com/ibm-garage-cloud/terraform-k8s-namespace
           version: ">= 2.1.0"
-    - id: dashboard
-      refs:
-        - source: github.com/ibm-garage-cloud/terraform-k8s-dashboard
-          version: ">= 1.6.0"
   variables:
     - name: cluster_type
       moduleRef:
@@ -47,7 +43,3 @@ versions:
         id: namespace
         output: name
         discriminator: tools
-    - name: icon_url
-      moduleRef:
-        id: dashboard
-        output: base_icon_url
