@@ -49,7 +49,7 @@ locals {
     nameOverride = "artifactory"
     artifactory = {
       image = {
-        repository = "docker.bintray.io/jfrog/artifactory-oss"
+        repository = "jfrog/artifactory-oss"
       }
       adminAccess = {
         password = "admin"
@@ -59,7 +59,7 @@ locals {
         storageClass = var.storage_class
         size = "5Gi"
       }
-      uid = 0
+      excludeSecurityContext = true
     }
     ingress = {
       enabled = var.cluster_type == "kubernetes"
@@ -142,7 +142,6 @@ resource "local_file" "artifactory-values" {
 
   content  = yamlencode({
     global = local.global_config
-    service-account = local.service_account_config
     config-service-account = local.config_service_account_config
     artifactory = local.artifactory_config
     ocp-route = local.ocp_route_config
