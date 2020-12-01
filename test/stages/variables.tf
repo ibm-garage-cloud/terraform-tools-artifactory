@@ -15,9 +15,9 @@ variable "region" {
   description = "Region for VLANs defined in private_vlan_number and public_vlan_number."
 }
 
-variable "tools_namespace" {
+variable "namespace" {
   type        = string
-  description = "Namespace for tools"
+  description = "Namespace for test"
 }
 
 variable "cluster_name" {
