@@ -1,4 +1,4 @@
-id: github.com/ibm-garage-cloud/terraform-tools-artifactory
+id: github.com/https://github.com/ibm-garage-cloud/terraform-tools-artifactory
 name: artifactory
 type: terraform
 description: Module to install Artifactory into a cluster
@@ -22,10 +22,6 @@ versions:
         refs:
           - source: github.com/ibm-garage-cloud/terraform-k8s-namespace
             version: ">= 2.1.0"
-      - id: dashboard
-        refs:
-          - source: github.com/ibm-garage-cloud/terraform-k8s-dashboard
-            version: ">= 1.6.0"
     variables:
       - name: cluster_type
         moduleRef:
@@ -59,10 +55,6 @@ versions:
           discriminator: tools
         type: string
         description: Name of the existing namespace where Pact Broker will be deployed.
-      - name: icon_url
-        moduleRef:
-          id: dashboard
-          output: base_icon_url
       - name: service_account
         type: string
         description: The service account under which the artifactory pods should run
@@ -87,7 +79,7 @@ versions:
         type: string
         description: The mode of operation for the module (setup)
         optional: true
-    version: v1.9.2
+    version: v1.9.4
     outputs:
       - name: ingress_host
         description: The ingress host for the Artifactory instance
