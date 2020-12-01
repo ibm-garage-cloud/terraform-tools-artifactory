@@ -19,6 +19,9 @@ jobs:
         with:
           ref: ${{ github.event.release.tag_name }}
 
+      - name: Make destination dir
+        run: mkdir -p ${{ env.DIST_DIR }}
+
       - name: Build catalog
         uses: ibm-garage-cloud/action-module-catalog@main
         with:
