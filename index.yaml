@@ -79,7 +79,7 @@ versions:
         type: string
         description: The mode of operation for the module (setup)
         optional: true
-    version: v1.9.4
+    version: v1.9.6
     outputs:
       - name: ingress_host
         description: The ingress host for the Artifactory instance
