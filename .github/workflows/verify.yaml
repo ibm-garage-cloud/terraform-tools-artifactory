@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v1
 
       # Setups up the task
-      - name: Setup ${{ matrix.platform }}
+      - name: Verify on ${{ matrix.platform }}
         uses: ibm-garage-cloud/action-module-verify@main
         with:
           clusterId: ${{ matrix.platform }}
