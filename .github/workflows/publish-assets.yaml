@@ -19,16 +19,12 @@ jobs:
         with:
           ref: ${{ github.event.release.tag_name }}
 
-      - name: Make destination dir
-        run: mkdir -p ${{ env.DIST_DIR }}
-
       - name: Build catalog
         uses: ibm-garage-cloud/action-module-catalog@main
         with:
           tagName: ${{ github.event.release.tag_name }}
           distDir: ${{ env.DIST_DIR }}
           publishBranch: ${{ env.PUBLISH_BRANCH }}
-          repoSlug: ${{ env.GITHUB_REPOSITORY }}
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
