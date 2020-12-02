@@ -39,7 +39,7 @@ variable "chart_version" {
 variable "storage_class" {
   type        = string
   description = "The storage class of the persistence volume claim"
-  default     = "ibmc-file-gold"
+  default     = ""
 }
 
 variable "persistence" {

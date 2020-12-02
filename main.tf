@@ -56,7 +56,7 @@ locals {
       }
       persistence = {
         enabled = var.persistence
-        storageClass = var.storage_class
+        storageClassName = var.storage_class
         size = "5Gi"
       }
       uid = 0
