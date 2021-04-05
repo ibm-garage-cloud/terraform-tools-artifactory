@@ -3,4 +3,5 @@ module "dev_tools_namespace" {
 
   cluster_config_file_path = module.dev_cluster.config_file_path
   name                     = var.namespace
+  cluster_type             = module.dev_cluster.platform.type_code
 }
