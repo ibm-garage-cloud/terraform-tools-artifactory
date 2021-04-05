@@ -27,11 +27,11 @@ versions:
     - name: cluster_type
       moduleRef:
         id: cluster
-        output: type_code
+        output: platform.type_code
     - name: cluster_ingress_hostname
       moduleRef:
         id: cluster
-        output: ingress_hostname
+        output: platform.ingress
     - name: cluster_config_file
       moduleRef:
         id: cluster
@@ -39,7 +39,7 @@ versions:
     - name: tls_secret_name
       moduleRef:
         id: cluster
-        output: tls_secret_name
+        output: platform.tls_secret
     - name: releases_namespace
       moduleRef:
         id: namespace
